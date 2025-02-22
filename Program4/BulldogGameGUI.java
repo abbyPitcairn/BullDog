@@ -9,6 +9,7 @@ import java.util.List;
 public class BulldogGameGUI {
     private JFrame frame;
     private JTextArea gameLog;
+    private JPanel scorePanel;
     private JButton rollButton, endTurnButton;
     private List<Player> players;
     private int currentPlayerIndex;
@@ -18,6 +19,10 @@ public class BulldogGameGUI {
         frame = new JFrame("Bulldog Dice Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 400);
+
+        scorePanel = new JPanel();
+        scorePanel.setLayout(new GridLayout(1, 5));
+        frame.add(scorePanel, BorderLayout.NORTH);
 
         gameLog = new JTextArea();
         gameLog.setEditable(false);
@@ -55,6 +60,9 @@ public class BulldogGameGUI {
                 case 4 -> players.add(new WimpPlayer(name));
                 default -> players.add(new RandomPlayer(name));
             }
+
+            JLabel playerLabel = new JLabel(name + ": 0");
+            scorePanel.add(playerLabel);
         }
 
         currentPlayerIndex = 0;
@@ -62,10 +70,20 @@ public class BulldogGameGUI {
         log(players.get(currentPlayerIndex).getName() + "'s turn:");
     }
 
+    private void updateScorePanel() {
+        scorePanel.removeAll();
+        for (Player player : players) {
+            JLabel playerLabel = new JLabel(player.getName() + ": " + player.getScore());
+            scorePanel.add(playerLabel);
+        }
+        scorePanel.revalidate();
+        scorePanel.repaint();
+    }
+
     private void rollDice(ActionEvent e) {
         Player currentPlayer = players.get(currentPlayerIndex);
         int roll = (int) (Math.random() * 6 + 1);
-        log("   " + currentPlayer.getName() + " rolled " + roll);
+        log("   Player " + currentPlayer.getName() + " rolled " + roll);
 
         if (roll == 6) {
             log(currentPlayer.getName() + " lost the turn!");
@@ -81,6 +99,8 @@ public class BulldogGameGUI {
         Player currentPlayer = players.get(currentPlayerIndex);
         currentPlayer.setScore(currentPlayer.getScore() + turnScore);
         log(currentPlayer.getName() + "'s total score: " + currentPlayer.getScore());
+
+        updateScorePanel();
 
         if (currentPlayer.getScore() >= 104) {
             log(currentPlayer.getName() + " wins!");
