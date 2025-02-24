@@ -172,6 +172,7 @@ public class BulldogGameGUI {
             log(currentPlayer.getName() + " wins!");
             rollButton.setEnabled(false);
             endTurnButton.setEnabled(false);
+            continueButton.setEnabled(false);
         } else {
             turnScore = 0;
             nextTurn();
