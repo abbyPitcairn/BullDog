@@ -1,7 +1,7 @@
 # 🐶 Bulldog Game: AI vs. Human Development  
 
 **Author:** Abby Pitcairn  
-**Version:** February 17, 2025  
+**Version:** February 23, 2025  
 
 ## 📌 Overview  
 
