@@ -22,6 +22,7 @@ public class BulldogGameGUI {
     final private int WINNING_SCORE = 104;
 
     public BulldogGameGUI() {
+        mySetLookAndFeel();
         frame = new JFrame("Bulldog Dice Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 400);
@@ -50,28 +51,21 @@ public class BulldogGameGUI {
 
         frame.setVisible(true);
 
-        // Start the first turn after initialization
         nextTurn();
     }
 
     private void nextTurn() {
-        // Move to the next player
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
         Player currentPlayer = players.get(currentPlayerIndex);
         log(currentPlayer.getName() + "'s turn:");
-
-        // If the current player is a HumanPlayer, show the roll and end turn buttons
         if (currentPlayer instanceof HumanPlayer) {
             rollButton.setVisible(true);
             endTurnButton.setVisible(true);
             continueButton.setVisible(false);
         } else {
-            // If the current player is not a HumanPlayer, show only the continue button
             rollButton.setVisible(false);
             endTurnButton.setVisible(false);
             continueButton.setVisible(true);
-
-            // Let the non-HumanPlayer play automatically
             turnScore = currentPlayer.play();
             log(currentPlayer.getName() + " scored " + turnScore);
             
@@ -138,24 +132,32 @@ public class BulldogGameGUI {
 
         updateScorePanel();
 
-        // Check if the current player has won
         if (currentPlayer.getScore() >= WINNING_SCORE) {
             log(currentPlayer.getName() + " wins!");
             rollButton.setEnabled(false);
             endTurnButton.setEnabled(false);
         } else {
-            turnScore = 0; // Reset the score for the next turn
-            nextTurn(); // Move to the next player's turn
+            turnScore = 0;
+            nextTurn(); 
         }
     }
 
     private void continueTurn() {
-        endTurn(); // Switch to the next player after the "Continue" button is pressed
+        endTurn();
     }
     
     private void checkWinCondition(Player player) {
         if (player.getScore() + turnScore >= WINNING_SCORE) {
             endTurn();
+        }
+    }
+    
+    private void mySetLookAndFeel() {
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException |
+                 InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
         }
     }
 
