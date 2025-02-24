@@ -6,14 +6,20 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The BulldogGameGUI class represents the graphical user interface (GUI) for the Bulldog Dice Game.
+ * It manages the game flow, including handling player interactions, rolling dice, updating scores,
+ * and displaying game logs. This class uses Swing components to create the GUI and manage the game's state.
+ */
 public class BulldogGameGUI {
     private JFrame frame;
     private JTextArea gameLog;
     private JPanel scorePanel;
-    private JButton rollButton, endTurnButton;
+    private JButton rollButton, endTurnButton, continueButton;
     private List<Player> players;
     private int currentPlayerIndex;
     private int turnScore;
+    final private int WINNING_SCORE = 104;
 
     public BulldogGameGUI() {
         frame = new JFrame("Bulldog Dice Game");
@@ -21,7 +27,7 @@ public class BulldogGameGUI {
         frame.setSize(600, 400);
 
         scorePanel = new JPanel();
-        scorePanel.setLayout(new GridLayout(1, 5));
+        scorePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10)); // Center with spacing
         frame.add(scorePanel, BorderLayout.NORTH);
 
         gameLog = new JTextArea();
@@ -31,15 +37,45 @@ public class BulldogGameGUI {
         JPanel buttonPanel = new JPanel();
         rollButton = new JButton("Roll Dice");
         endTurnButton = new JButton("End Turn");
+        continueButton = new JButton("Continue");
         buttonPanel.add(rollButton);
         buttonPanel.add(endTurnButton);
+        buttonPanel.add(continueButton);
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
         initializePlayers();
         rollButton.addActionListener(this::rollDice);
         endTurnButton.addActionListener(e -> endTurn());
+        continueButton.addActionListener(e -> continueTurn());
 
         frame.setVisible(true);
+
+        // Start the first turn after initialization
+        nextTurn();
+    }
+
+    private void nextTurn() {
+        // Move to the next player
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+        Player currentPlayer = players.get(currentPlayerIndex);
+        log(currentPlayer.getName() + "'s turn:");
+
+        // If the current player is a HumanPlayer, show the roll and end turn buttons
+        if (currentPlayer instanceof HumanPlayer) {
+            rollButton.setVisible(true);
+            endTurnButton.setVisible(true);
+            continueButton.setVisible(false);
+        } else {
+            // If the current player is not a HumanPlayer, show only the continue button
+            rollButton.setVisible(false);
+            endTurnButton.setVisible(false);
+            continueButton.setVisible(true);
+
+            // Let the non-HumanPlayer play automatically
+            turnScore = currentPlayer.play();
+            log(currentPlayer.getName() + " scored " + turnScore);
+            
+        }
     }
 
     private void initializePlayers() {
@@ -65,9 +101,8 @@ public class BulldogGameGUI {
             scorePanel.add(playerLabel);
         }
 
-        currentPlayerIndex = 0;
+        currentPlayerIndex = -1;
         turnScore = 0;
-        log(players.get(currentPlayerIndex).getName() + "'s turn:");
     }
 
     private void updateScorePanel() {
@@ -83,7 +118,7 @@ public class BulldogGameGUI {
     private void rollDice(ActionEvent e) {
         Player currentPlayer = players.get(currentPlayerIndex);
         int roll = (int) (Math.random() * 6 + 1);
-        log("   Player " + currentPlayer.getName() + " rolled " + roll);
+        log("   " + currentPlayer.getName() + " rolled a " + roll);
 
         if (roll == 6) {
             log(currentPlayer.getName() + " lost the turn!");
@@ -91,30 +126,41 @@ public class BulldogGameGUI {
             endTurn();
         } else {
             turnScore += roll;
-            log("Current score: " + turnScore);
+            checkWinCondition(currentPlayer);
+            log("   Turn total: " + turnScore);
         }
     }
 
     private void endTurn() {
         Player currentPlayer = players.get(currentPlayerIndex);
         currentPlayer.setScore(currentPlayer.getScore() + turnScore);
-        log(currentPlayer.getName() + "'s total score: " + currentPlayer.getScore());
+        log(currentPlayer.getName() + "'s total score: " + currentPlayer.getScore() + "\n");
 
         updateScorePanel();
 
-        if (currentPlayer.getScore() >= 104) {
+        // Check if the current player has won
+        if (currentPlayer.getScore() >= WINNING_SCORE) {
             log(currentPlayer.getName() + " wins!");
             rollButton.setEnabled(false);
             endTurnButton.setEnabled(false);
         } else {
-            turnScore = 0;
-            currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-            log("\n" + players.get(currentPlayerIndex).getName() + "'s turn:");
+            turnScore = 0; // Reset the score for the next turn
+            nextTurn(); // Move to the next player's turn
+        }
+    }
+
+    private void continueTurn() {
+        endTurn(); // Switch to the next player after the "Continue" button is pressed
+    }
+    
+    private void checkWinCondition(Player player) {
+        if (player.getScore() + turnScore >= WINNING_SCORE) {
+            endTurn();
         }
     }
 
     private void log(String message) {
-        gameLog.append(message + "\n");
+        gameLog.append(message + "\n"); 
     }
 
     public static void main(String[] args) {
