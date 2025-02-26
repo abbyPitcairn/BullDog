@@ -4,6 +4,8 @@ import java.util.*;
 
 /**
  * A Human player that decides each roll interactively.
+ * @author Abigail Pitcairn
+ * @version Feb 26, 2025
  */
 class HumanPlayer extends Player {
     private Scanner scanner = new Scanner(System.in);
