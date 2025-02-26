@@ -4,6 +4,8 @@ package Program5;
  * Abstract class representing a Player in the Bulldog game.
  * All types of players (Human, Wimp, Random, Fifteen, Unique) extend this class.
  * A player has a name, a score, and a method to play their turn.
+* @author Abigail Pitcairn
+ * @version Feb 26, 2025
  */
 public abstract class Player {
     private String name;
