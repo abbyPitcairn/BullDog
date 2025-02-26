@@ -2,6 +2,8 @@ package Program5;
 
 /**
  * A Wimp player that always rolls once and stops.
+ * @author Abigail Pitcairn
+ * @version Feb 26, 2025
  */
 class WimpPlayer extends Player {
     /**
