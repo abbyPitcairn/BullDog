@@ -2,6 +2,8 @@ package Program5;
 
 /**
  * A player that stops rolling once their turn score reaches 15.
+ * @author Abigail Pitcairn
+ * @version Feb 26, 2025
  */
 class FifteenPlayer extends Player {
     /**
