@@ -4,6 +4,8 @@ import java.util.Random;
 
 /**
  * A Random player that randomly decides to roll or stop.
+ * @author Abigail Pitcairn
+ * @version Feb 26, 2025
  */
 class RandomPlayer extends Player {
     /**
