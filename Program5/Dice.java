@@ -5,6 +5,8 @@ import java.util.Random;
 /**
  * The {@code Dice} class represents a standard six-sided die used in the game.
  * It provides a method to roll the die and return a random value between 1 and 6.
+ * @author Abigail Pitcairn
+ * @version Feb 26, 2025
  */
 class Dice {
     private Random random;
