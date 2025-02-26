@@ -2,6 +2,8 @@ package Program5;
 
 /**
  * A unique player that follows a different rolling strategy.
+ * @author Abigail Pitcairn
+ * @version Feb 26, 2025
  */
 class UniquePlayer extends Player {
     /**
