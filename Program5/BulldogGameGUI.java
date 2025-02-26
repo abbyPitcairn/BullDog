@@ -10,6 +10,8 @@ import java.util.List;
  * The BulldogGameGUI class represents the graphical user interface (GUI) for the Bulldog Dice Game.
  * It manages the game flow, including handling player interactions, rolling dice, updating scores,
  * and displaying game logs. This class uses Swing components to create the GUI and manage the game's state.
+ * @author Abigail Pitcairn
+ * @version Feb 26, 2025
  */
 public class BulldogGameGUI {
     private JFrame frame;
