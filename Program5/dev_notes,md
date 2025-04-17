@@ -1,16 +1,16 @@
-DEVELOPMENT NOTES
+#DEVELOPMENT NOTES
 PROGRAM 5
 FEB. 26, 2025
 
-Implementation:
+### Implementation:
 i. attempt to get the AI tool to implement the improvement
 ii. after 2-3 attempts, continue with tool OR implement by hand
 iii. assess how well the tool improved the code
 
-Improvement 1: Get rid of "104"
+### Improvement 1: Get rid of "104"
  - This was already done and was manually implemented by myself in an effort to improve the AI's work on program 4.
 
-Improvement 2: Consolidate randomness
+### Improvement 2: Consolidate randomness
  - Gave AI the Player.java and BulldogGUI.java classes and the text from the assignment on improvement 2; AI returned a
    non-functional program that looked nothing like what it was given 
  
@@ -29,14 +29,14 @@ Improvement 2: Consolidate randomness
   - Gave AI the BulldogGUI.java class and asked it to implement the Dice object, which it did creating a Dice in the
     BulldogGUI constructor and then added it to fill the new parameter in all play() methods. 
     
-Improvement 3: Javadoc
+### Improvement 3: Javadoc
  - This was easy to implement, although there was variation in the level of detail.
  - The code I provided it, Player.java and BulldogGUI.java, both came with Javadoc. During the revision process, the AI
    omitted the comments and at the end, had to be explicitly asked to add them back.
  - At one point, the AI left out the updateScorePanel() method from BullDogGUI.java entirely and had to be explicitly asked
    to add it back.
    
-Improvement 4: File Structure
+### Improvement 4: File Structure
  - The format of the classes that the AI provided was already structured in a way that could easily be split into separate
    classes:
     - Dice was its own class
@@ -45,7 +45,7 @@ Improvement 4: File Structure
     - Each Player subclass was included in the same file as Player, but each could be moved to their own file without alteration
       to the code. 
       
-Overall Evaluation:
+### Overall Evaluation:
  AI tools are not that intelligent. They cannot implement broad, abstract changes to the structure and paths of a program.
  However, they are very effective at doing the "busy work" for you, and are competent enough for straight-forward tasks.
  It is moreso when you ask the AI to implement an IDEA that it will get it wrong, or give you something that isn't even code.
