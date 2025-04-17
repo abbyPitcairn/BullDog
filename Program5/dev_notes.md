@@ -3,9 +3,9 @@ PROGRAM 5
 FEB. 26, 2025
 
 ### Implementation:
-i. attempt to get the AI tool to implement the improvement
-ii. after 2-3 attempts, continue with tool OR implement by hand
-iii. assess how well the tool improved the code
+1. attempt to get the AI tool to implement the improvement
+2. after 2-3 attempts, continue with tool OR implement by hand
+3. assess how well the tool improved the code
 
 ### Improvement 1: Get rid of "104"
  - This was already done and was manually implemented by myself in an effort to improve the AI's work on program 4.
