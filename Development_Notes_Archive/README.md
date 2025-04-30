@@ -2,4 +2,4 @@
 
 ## These notes include observations on where AI succeeded and failed.
 
-### Version: April 17, 2025
+### Version: April 30, 2025
